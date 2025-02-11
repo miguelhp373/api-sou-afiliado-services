@@ -5,7 +5,12 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=false
 WORKDIR /usr/src/app
 
 COPY package*.json ./
-RUN npm ci && node node_modules/puppeteer/install.js
+
+# Primeiro, instala dependências do projeto
+RUN npm install
+
+# Em seguida, instala o Chromium manualmente
+RUN npx puppeteer install
 
 COPY . .
 
