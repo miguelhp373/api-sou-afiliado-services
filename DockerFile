@@ -1,0 +1,21 @@
+# Usar a imagem base do Puppeteer
+FROM ghcr.io/puppeteer/puppeteer:24.1.1
+
+# Definir a variável de ambiente para o Puppeteer
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
+
+# Definir o diretório de trabalho no contêiner
+WORKDIR /usr/src/app
+
+# Copiar package.json e package-lock.json primeiro para otimizar cache de build
+COPY ../../package*.json ./
+
+# Instalar as dependências
+RUN npm install
+
+# Copiar todo o restante dos arquivos do projeto para o contêiner
+COPY . .
+
+# Comando para rodar a aplicação
+CMD ["npm", "run", "dev"]
