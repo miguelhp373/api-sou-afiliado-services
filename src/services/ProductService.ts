@@ -29,7 +29,7 @@ export class ProductService {
   private static async extractProductLink(url: string) {
     const browser = await puppeteer.launch({ 
 		headless: true ,
-		executablePath: process.env.NODE_ENV === "production" ? process.env.PUPPETEER_EXECUTABLE_PATH : puppeteer.executablePath(),
+		executablePath: puppeteer.executablePath(),
 		args: ["--disable-setuid-sandbox", "--no-sandbox", "--single-process", "--no-zygote",],
 	});
     const page = await browser.newPage();
